@@ -6,7 +6,7 @@ const usersRouter = require('./data/hubs/usersRouter')
 const server = express();
 
 server.use(express.json());
-// server.use(upperCase)
+server.use(upperCase)
 
 server.get('/', (req, res) => {
   res.send(`
@@ -34,7 +34,7 @@ function upperCase(req, res, next) {
         req.body.name = name
 
         next()
-    } else {
+    } else if (req) {next()} else {
         res.status(401).send('Something is amiss here')
     }
 }
