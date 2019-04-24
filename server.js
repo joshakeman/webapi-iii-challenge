@@ -22,19 +22,21 @@ function upperCase(req, res, next) {
 
     if (name) {
         name = name.split(' ').map((str) => {
-                let newString = str[0].toUpperCase()
-                // console.log(str)
-            
-                return newString + str.slice(1)
-                }
-                
-                ).join(' ') 
-
-            req.body.name = name } else {next()}
-
-            res.status(401).send('Something is amiss here')
+            let newString = str[0].toUpperCase()
+            // console.log(str)
+          
+            return newString + str.slice(1)
             }
-        
-   
+            
+            ).join(' ') 
+
+        console.log()
+        req.body.name = name
+
+        next()
+    } else {
+        res.status(401).send('Something is amiss here')
+    }
+}
 
 module.exports = server
