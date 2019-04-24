@@ -6,6 +6,7 @@ const usersRouter = require('./data/hubs/usersRouter')
 const server = express();
 
 server.use(express.json());
+// server.use(upperCase)
 
 server.get('/', (req, res) => {
   res.send(`
@@ -15,5 +16,25 @@ server.get('/', (req, res) => {
 
 server.use('/api/posts', postsRouter)
 server.use('/api/users', usersRouter)
+
+function upperCase(req, res, next) {
+    let name = req.body.name
+
+    if (name) {
+        name = name.split(' ').map((str) => {
+                let newString = str[0].toUpperCase()
+                // console.log(str)
+            
+                return newString + str.slice(1)
+                }
+                
+                ).join(' ') 
+
+            req.body.name = name } else {next()}
+
+            res.status(401).send('Something is amiss here')
+            }
+        
+   
 
 module.exports = server

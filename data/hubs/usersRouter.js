@@ -2,6 +2,8 @@ const express = require('express')
 
 const Users = require('../helpers/userDB')
 
+const Posts = require('../helpers/postDb')
+
 const router = express.Router()
 
 router.get('/', async (req, res) => {
@@ -83,5 +85,25 @@ router.put('/:id', async (req, res) => {
       });
     }
   });
+
+  router.get('/:id/posts', async (req, res) => {
+    try {
+        const posts = await Users.getUserPosts(req.params.id);
+    
+        if (posts) {
+        res.status(200).json(posts);
+        } else {
+        res.status(404).json({ message: 'There are no posts' });
+        }
+    } catch (error) {
+        // log error to database
+        console.log(error);
+        res.status(500).json({
+        message: 'Error retrieving those posts',
+        });
+    }
+    });
+
+
 
   module.exports = router
